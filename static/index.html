@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE/NET Exam Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="bot-avatar">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="header-text">
+                    <h1>GATE/NET Exam Assistant</h1>
+                    <p>Your AI-powered study companion for GATE and NET engineering exams. Ask me anything about CS, EC, EE, ME, and more!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="message-content">
+                    <p>🤖 <strong>Welcome to GATE/NET Exam Assistant!</strong>
+
+I'm here to help you prepare for your GATE and NET engineering exams. I can assist with:
+
+📚 <strong>Subject Help:</strong>
+• Computer Science, Electronics, Electrical, Mechanical
+• Problem-solving techniques
+• Important formulas and concepts
+
+📖 <strong>Study Guidance:</strong>
+• Preparation strategies
+• Time management tips
+• Mock test preparation
+
+💡 <strong>Try asking:</strong>
+• "Help me with Computer Science topics"
+• "What are important formulas for Electronics?"
+• "Give me study strategy for GATE"
+• "Explain thermodynamics concepts"
+
+Let's ace your exam together! 🎯✨</p>
+                    <span class="message-time">Just now</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <div class="input-wrapper">
+                <input type="text" id="messageInput" placeholder="Ask about GATE/NET subjects, formulas, study tips..." maxlength="500">
+                <button id="sendButton" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="input-hint">
+                <p>💡 Try: "Computer Science topics", "Electronics formulas", "Study strategy", "GATE preparation tips"</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

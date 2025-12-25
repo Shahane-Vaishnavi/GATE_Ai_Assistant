@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,31 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GATE/NET Exam Assistant</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 </head>
 <body>
-    <!--just for git commit strict-->
-    <div class="chat-container">
+    <!-- Animated Background Pattern -->
+    <div class="animated-background">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
+
+    <!-- Daily Tip Banner -->
+    <div class="daily-tip-banner" id="dailyTipBanner">
+        <div class="tip-content">
+            <i class="fas fa-lightbulb"></i>
+            <span id="dailyTipText">💡 Daily Tip: Practice previous year papers for better understanding!</span>
+        </div>
+        <button class="tip-close" onclick="this.parentElement.style.display='none'">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span><i class="fas fa-chart-line"></i> Questions Today: <strong id="questionCount">0</strong>/20</span>
+            <span class="study-streak"><i class="fas fa-fire"></i> <span id="studyStreak">0</span> days streak!</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <div class="chat-container" id="chatContainer">
         <div class="chat-header">
-            <div class="header-content">
-                <div class="bot-avatar">
-                    <i class="fas fa-graduation-cap"></i>
+            <div class="header-top">
+                <div class="header-content">
+                    <div class="bot-avatar animated-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1>GATE/NET Exam Assistant</h1>
+                        <div class="header-subtitle">
+                            <span class="status-indicator">
+                                <span class="status-dot"></span>
+                                <span>AI is online</span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="header-text">
-                    <h1>GATE/NET Exam Assistant</h1>
-                    <p>Your AI-powered study companion for GATE and NET engineering exams. Ask me anything about CS, EC, EE, ME, and more!</p>
+                
+                <div class="header-actions">
+                    <div class="subject-selector-wrapper">
+                        <select id="subjectSelector" class="subject-selector">
+                            <option value="">All Subjects</option>
+                            <option value="CS">💻 Computer Science</option>
+                            <option value="EC">📡 Electronics</option>
+                            <option value="EE">⚡ Electrical</option>
+                            <option value="ME">🔧 Mechanical</option>
+                        </select>
+                    </div>
+                    <button class="header-btn" id="darkModeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="header-btn" id="clearChatBtn" title="Clear Chat">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <button class="header-btn" id="exportChatBtn" title="Export Chat">
+                        <i class="fas fa-download"></i>
+                    </button>
                 </div>
             </div>
         </div>
         
         <div class="chat-messages" id="chatMessages">
-            <div class="message bot-message">
-                <div class="message-avatar">
+            <div class="empty-state" id="emptyState">
+                <div class="empty-state-illustration">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Ready to Study!</h3>
+                <p>Ask me anything about GATE/NET subjects, formulas, or study strategies</p>
+            </div>
+            
+            <div class="message bot-message welcome-message" id="welcomeMessage">
+                <div class="message-avatar bot-avatar-gradient">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="message-content">
-                    <p>🤖 <strong>Welcome to GATE/NET Exam Assistant!</strong>
+                    <div class="message-header">
+                        <span class="message-sender">GATE Assistant</span>
+                        <div class="message-actions">
+                            <button class="message-action-btn copy-btn" title="Copy">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="message-action-btn bookmark-btn" title="Bookmark">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="message-body">
+                        <p>🤖 <strong>Welcome to GATE/NET Exam Assistant!</strong>
 
 I'm here to help you prepare for your GATE and NET engineering exams. I can assist with:
 
@@ -51,24 +129,107 @@ I'm here to help you prepare for your GATE and NET engineering exams. I can assi
 • "Explain thermodynamics concepts"
 
 Let's ace your exam together! 🎯✨</p>
-                    <span class="message-time">Just now</span>
+                    </div>
+                    <div class="message-footer">
+                        <span class="message-time">Just now</span>
+                        <div class="message-reactions">
+                            <button class="reaction-btn" title="Helpful">
+                                <i class="fas fa-thumbs-up"></i>
+                            </button>
+                            <button class="reaction-btn" title="Not helpful">
+                                <i class="fas fa-thumbs-down"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="chat-input-container">
+            <!-- Quick Action Buttons -->
+            <div class="quick-actions">
+                <button class="quick-action-btn" data-action="topics" title="Browse Topics">
+                    <i class="fas fa-book"></i>
+                    <span>Topics</span>
+                </button>
+                <button class="quick-action-btn" data-action="formulas" title="Formula Sheet">
+                    <i class="fas fa-calculator"></i>
+                    <span>Formulas</span>
+                </button>
+                <button class="quick-action-btn" data-action="practice" title="Practice Questions">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Practice</span>
+                </button>
+                <button class="quick-action-btn" data-action="tips" title="Study Tips">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Tips</span>
+                </button>
+            </div>
+
+            <!-- Suggestion Chips -->
+            <div class="suggestion-chips" id="suggestionChips">
+                <button class="suggestion-chip">Explain binary search algorithm</button>
+                <button class="suggestion-chip">Important formulas for Electronics</button>
+                <button class="suggestion-chip">GATE preparation strategy</button>
+                <button class="suggestion-chip">Time complexity analysis</button>
+            </div>
+
             <div class="input-wrapper">
+                <button class="voice-input-btn" id="voiceInputBtn" title="Voice Input">
+                    <i class="fas fa-microphone"></i>
+                </button>
                 <input type="text" id="messageInput" placeholder="Ask about GATE/NET subjects, formulas, study tips..." maxlength="500">
+                <div class="char-counter" id="charCounter">0/500</div>
                 <button id="sendButton" class="send-button">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
-            <div class="input-hint">
-                <p>💡 Try: "Computer Science topics", "Electronics formulas", "Study strategy", "GATE preparation tips"</p>
+        </div>
+
+    </div>
+
+    <!-- Floating Help Button -->
+    <button class="floating-help-btn" id="floatingHelpBtn" title="Help & Shortcuts">
+        <i class="fas fa-question-circle"></i>
+    </button>
+
+    <!-- Help Modal -->
+    <div class="help-modal" id="helpModal">
+        <div class="help-modal-content">
+            <div class="help-modal-header">
+                <h2>Help & Keyboard Shortcuts</h2>
+                <button class="help-modal-close" id="helpModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="help-modal-body">
+                <div class="shortcut-item">
+                    <kbd>Enter</kbd>
+                    <span>Send message</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl</kbd> + <kbd>K</kbd>
+                    <span>Quick commands</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Esc</kbd>
+                    <span>Clear input</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl</kbd> + <kbd>D</kbd>
+                    <span>Toggle dark mode</span>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="/static/script.js"></script>
 </body>
 </html>

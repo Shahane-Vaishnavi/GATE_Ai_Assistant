@@ -392,4 +392,32 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import socket
+    
+    # Check if port is available
+    def is_port_available(port):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(('127.0.0.1', port))
+                return True
+            except OSError:
+                return False
+    
+    # Use 127.0.0.1 instead of 0.0.0.0 for better localhost access on Windows
+    HOST = "127.0.0.1"
+    PORT = 8000
+    
+    if not is_port_available(PORT):
+        print(f"\n[ERROR] Port {PORT} is already in use!")
+        print(f"[INFO] Please close the application using port {PORT} or change the port number.")
+        print(f"[INFO] To change port, edit main.py and modify the PORT variable.\n")
+        exit(1)
+    
+    print(f"\n{'='*50}")
+    print(f" GATE/NET Exam Assistant Server")
+    print(f"{'='*50}")
+    print(f" Server running on: http://{HOST}:{PORT}")
+    print(f" Access at: http://localhost:{PORT}")
+    print(f"{'='*50}\n")
+    
+    uvicorn.run(app, host=HOST, port=PORT, log_level="info")

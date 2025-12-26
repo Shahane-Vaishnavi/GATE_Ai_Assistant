@@ -7,6 +7,11 @@ import httpx
 import os
 from typing import Optional
 import json
+from pathlib import Path
+
+# Get the directory where this script is located
+BASE_DIR = Path(__file__).parent
+STATIC_DIR = BASE_DIR / "static"
 
 app = FastAPI(title="GATE/NET Exam Assistant", version="1.0.0")
 
@@ -20,7 +25,7 @@ app.add_middleware(
 )
 
 # Mount static files for serving the frontend
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 # Pydantic models
 class ChatMessage(BaseModel):
@@ -334,7 +339,7 @@ async def get_weather_data(city: str = "London") -> dict:
 @app.get("/")
 async def read_root():
     """Serve the main HTML page"""
-    return FileResponse("static/index.html")
+    return FileResponse(str(STATIC_DIR / "index.html"))
 
 @app.post("/api/chat")
 async def chat_endpoint(chat_message: ChatMessage):

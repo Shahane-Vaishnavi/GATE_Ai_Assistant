@@ -34,37 +34,129 @@ A specialized AI chatbot designed to help engineering students prepare for GATE 
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### Method 1: Using the Run Scripts (Recommended)
+
+#### For Windows:
+1. Navigate to the project directory:
+   ```bash
+   cd GATE_Ai_Assistant
+   ```
+2. Double-click `run.bat` or run from terminal:
+   ```bash
+   run.bat
+   ```
+
+#### For Linux/Mac:
+1. Navigate to the project directory:
+   ```bash
+   cd GATE_Ai_Assistant
+   ```
+2. Make the script executable (first time only):
+   ```bash
+   chmod +x run.sh
+   ```
+3. Run the script:
+   ```bash
+   ./run.sh
+   ```
+
+The script will automatically:
+- Check if Python is installed
+- Install dependencies if needed
+- Start the server on `http://localhost:8000`
+
+### Method 2: Manual Terminal Setup
+
+#### 1. Install Dependencies
+
+Open your terminal/command prompt and navigate to the project directory:
 
 ```bash
-pip install -r requirements.txt
+cd GATE_Ai_Assistant
 ```
 
-### 2. Set Up OpenAI API Key
+Then install the required packages:
+
+```bash
+# Windows (Command Prompt or PowerShell)
+pip install -r requirements.txt
+
+# Linux/Mac
+pip3 install -r requirements.txt
+# OR
+python3 -m pip install -r requirements.txt
+```
+
+#### 2. Set Up OpenAI API Key (Optional)
 
 For full AI functionality, set up your OpenAI API key:
 
 1. Get an API key from [OpenAI Platform](https://platform.openai.com/api-keys)
 2. Set environment variable:
+
+   **Windows (Command Prompt):**
    ```bash
-   # Windows
    set OPENAI_API_KEY=your-openai-api-key-here
-   
-   # Linux/Mac
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   $env:OPENAI_API_KEY="your-openai-api-key-here"
+   ```
+
+   **Linux/Mac:**
+   ```bash
    export OPENAI_API_KEY=your-openai-api-key-here
+   ```
+
+   **For permanent setup (Windows):**
+   - Go to System Properties → Environment Variables
+   - Add `OPENAI_API_KEY` as a new user variable
+
+   **For permanent setup (Linux/Mac):**
+   ```bash
+   echo 'export OPENAI_API_KEY="your-openai-api-key-here"' >> ~/.bashrc
+   source ~/.bashrc
    ```
 
 **Note**: The app works without API keys using comprehensive mock responses for demo purposes.
 
-### 3. Run the Application
+#### 3. Run the Application
 
+**Windows:**
 ```bash
-uvicorn main:app --reload
+# Option 1: Using Python directly
+python main.py
+
+# Option 2: Using uvicorn directly
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### 4. Open in Browser
+**Linux/Mac:**
+```bash
+# Option 1: Using Python directly
+python3 main.py
 
-Navigate to: `http://localhost:8000`
+# Option 2: Using uvicorn directly
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+# OR
+python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+#### 4. Open in Browser
+
+Once the server is running, you'll see:
+```
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+```
+
+Open your browser and navigate to:
+- `http://localhost:8000` or
+- `http://127.0.0.1:8000`
+
+### Stopping the Server
+
+To stop the server, press `Ctrl+C` in the terminal where it's running.
 
 ## 💬 How to Use
 
@@ -108,15 +200,33 @@ Navigate to: `http://localhost:8000`
 ## 📁 Project Structure
 
 ```
-Project/
+GATE_Ai_Assistant/
 ├── main.py              # FastAPI backend with OpenAI integration
 ├── requirements.txt     # Python dependencies
 ├── README.md           # This documentation
+├── run.bat             # Windows run script (double-click to start)
+├── run.sh              # Linux/Mac run script
 └── static/             # Frontend files
     ├── index.html      # GATE/NET exam interface
     ├── style.css       # Academic-themed styling
     └── script.js       # Chat functionality
 ```
+
+## 🎮 Running the Application
+
+### Quick Start Options:
+
+1. **Windows Users**: Simply double-click `run.bat` in the `GATE_Ai_Assistant` folder
+2. **Linux/Mac Users**: Run `./run.sh` from the terminal after making it executable
+3. **Manual Setup**: Follow the detailed terminal instructions in the Quick Start section above
+
+### What the Run Scripts Do:
+
+- ✅ Check if Python is installed
+- ✅ Verify project files exist
+- ✅ Automatically install dependencies if needed
+- ✅ Start the FastAPI server
+- ✅ Display server URL and instructions
 
 ## 🔧 API Endpoints
 
